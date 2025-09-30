@@ -1,8 +1,8 @@
-# Generic Web Application - ShopFlow
+# ShopFlow - E-Commerce Sample Application
 
-## 🌐 Overview
+## 🛒 Overview
 
-ShopFlow is a comprehensive web application designed for learning AI-driven development workflows. It demonstrates a complete e-commerce platform with modern architecture, best practices, and AI-enhanced development processes.
+ShopFlow is a comprehensive e-commerce sample application designed for learning AI-driven development workflows. It demonstrates a complete online shopping platform with modern architecture, best practices, and AI-enhanced development processes.
 
 This application serves as a practical learning environment where development teams can practice AI-assisted development techniques across the entire software development lifecycle.
 
@@ -16,30 +16,28 @@ API Gateway (Express.js + TypeScript)
 Microservices:
 ├── User Service (Authentication & Profiles)
 ├── Product Service (Catalog & Inventory)
-├── Order Service (Cart & Order Processing)
+├── Order Service (Cart & Checkout)
 ├── Notification Service (Email/SMS/Push)
 └── Analytics Service (Metrics & Reporting)
     ↓
 Databases & Storage:
-├── MongoDB (Primary Database)
-├── Redis (Caching & Sessions)
-├── AWS S3 (File Storage)
+├── MongoDB (Primary Data Store)
+├── Redis (Caching, Sessions & Rate Limiting)
+├── AWS S3 (Image & File Storage)
 └── Elasticsearch (Search & Analytics)
     ↓
 External Integrations:
 ├── Stripe (Payment Processing)
 ├── SendGrid (Email Delivery)
-├── Twilio (SMS Notifications)
-├── Cloudinary (Image Management)
-└── Algolia (Search Enhancement)
+├── Cloudinary (Image Processing)
+├── Algolia (Advanced Search)
+└── Google Analytics (User Analytics)
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm 9+
-- MongoDB 6.0+
-- Redis 6.0+
 - Docker & Docker Compose v2+
 - Git with SSH key configured
 - VS Code with recommended extensions
@@ -49,8 +47,8 @@ External Integrations:
 
 1. **Clone and Initialize**
    ```bash
-   git clone <your-repo-url>
-   cd shopflow-app
+   git clone <your-repository-url>
+   cd dev-ai-generic/sample-app
    
    # Copy environment configuration
    cp .env.example .env
@@ -60,7 +58,7 @@ External Integrations:
 2. **Start Infrastructure Services**
    ```bash
    # Start databases and supporting services
-   docker-compose up -d mongodb redis adminer
+   docker-compose up -d mongodb redis
    
    # Wait for services to be ready
    docker-compose logs -f mongodb
@@ -68,10 +66,8 @@ External Integrations:
 
 3. **Database Setup**
    ```bash
-   # Run database initialization
-   npm run db:init
-   
-   # Seed with sample data
+   # Run database migrations and seed data
+   npm run db:setup
    npm run db:seed
    ```
 
@@ -81,7 +77,7 @@ External Integrations:
    npm install
    
    # Install backend dependencies
-   cd backend/api-gateway && npm install && cd ../..
+   cd backend && npm install && cd ..
    
    # Install frontend dependencies
    cd frontend && npm install && cd ..
@@ -94,102 +90,75 @@ External Integrations:
    
    # Or start services individually:
    npm run dev:backend  # API Gateway on :3000
-   npm run dev:frontend # React app on :3100
-   ```
-
-### Verification Steps
-
-1. **Check Service Health**
-   - API Gateway: http://localhost:3000/health
-   - Frontend App: http://localhost:3100
-   - Database Admin: http://localhost:8080 (adminer)
-   - API Documentation: http://localhost:3000/api-docs
-
-2. **Run Tests**
-   ```bash
-   # Run all tests
-   npm test
-   
-   # Run specific test suites
-   npm run test:unit
-   npm run test:integration
-   npm run test:e2e
+   npm run dev:frontend # React app on :3001
    ```
 
 ## 📁 Project Structure
 
 ```
-shopflow-app/
+sample-app/
 ├── frontend/                 # React TypeScript frontend
 │   ├── src/
 │   │   ├── components/      # Reusable UI components
-│   │   ├── pages/          # Application pages
+│   │   ├── pages/          # Application pages/routes
 │   │   ├── hooks/          # Custom React hooks
 │   │   ├── services/       # API client services
-│   │   └── utils/          # Utility functions
-│   ├── public/
+│   │   ├── store/          # State management
+│   │   ├── utils/          # Utility functions
+│   │   └── types/          # TypeScript definitions
 │   └── package.json
 ├── backend/                  # Node.js backend services
 │   ├── api-gateway/         # Express.js API gateway
 │   ├── services/           # Microservices
-│   │   ├── user-service/   # Authentication & user management
-│   │   ├── product-service/# Product catalog & inventory
-│   │   ├── order-service/  # Shopping cart & orders
-│   │   ├── notification-service/# Email & SMS notifications
-│   │   └── analytics-service/# Metrics & reporting
-│   └── shared/             # Shared utilities and types
-├── database/               # Database schemas and seeds
+│   │   ├── user-service/   # User management
+│   │   ├── product-service/# Product catalog
+│   │   ├── order-service/  # Order processing
+│   │   ├── notification-service/# Notifications
+│   │   └── analytics-service/# Analytics
+│   └── shared/             # Shared utilities
+├── database/               # Database schemas
 ├── docker/                # Docker configurations
-├── docs/                  # Application documentation
+├── docs/                  # Documentation
 ├── tests/                 # Test suites
-└── scripts/              # Build and deployment scripts
+└── scripts/              # Build scripts
 ```
 
-## 🎯 Features Implemented
+## 🎯 Features
 
-### Core Features
+### Core E-Commerce Features
 - [x] User registration and authentication
 - [x] Product catalog with categories
+- [x] Advanced search and filtering
 - [x] Shopping cart and wishlist
-- [x] Order processing and tracking
-- [x] Product search and filtering
-- [x] User reviews and ratings
-- [x] Multi-language support
+- [x] Secure checkout process
+- [x] Order tracking and history
+- [x] Product reviews and ratings
 
-### Advanced Features
-- [x] Real-time inventory updates
-- [x] Email and SMS notifications
-- [x] Admin dashboard and analytics
-- [x] API rate limiting and security
-- [x] Image upload and optimization
-- [x] Full-text search capabilities
-- [x] Responsive mobile design
+### Admin Features
+- [x] Admin dashboard
+- [x] Product management (CRUD)
+- [x] Order management
+- [x] User management
+- [x] Analytics and reporting
+- [x] Inventory management
 
-### Security Features
+### Technical Features
+- [x] RESTful API design
 - [x] JWT-based authentication
-- [x] Role-based access control (RBAC)
-- [x] Input validation and sanitization
-- [x] SQL injection prevention
-- [x] XSS protection
-- [x] CSRF protection
-- [x] Secure file uploads
+- [x] Role-based access control
+- [x] API rate limiting
+- [x] Input validation
+- [x] Comprehensive error handling
+- [x] Automated testing suites
 
-## 🛠️ Development Workflow
-
-### AI-Assisted Development
-Each service includes:
-- AI-generated boilerplate code
-- Comprehensive test suites
-- OpenAPI documentation
-- Docker configurations
-- CI/CD pipeline integration
+## 🛠️ AI-Assisted Development
 
 ### Code Generation Examples
 ```bash
 # Generate new microservice
-npm run generate:service --name=recommendation-service
+npm run generate:service --name=review-service
 
-# Generate API endpoints
+# Generate API endpoints  
 npm run generate:api --service=product --resource=categories
 
 # Generate test suites
@@ -203,25 +172,21 @@ npm run generate:tests --service=user --type=integration
 - **Integration Tests**: API and service integration
 - **E2E Tests**: Critical user journeys
 - **Performance Tests**: Load and stress testing
-- **Security Tests**: Vulnerability scanning
 
-### AI-Generated Test Suites
+### Example AI-Generated Test
 ```javascript
-// Example AI-generated test
-describe('Product Management', () => {
-  it('should create product with valid data', async () => {
-    const productData = {
-      name: 'Test Product',
-      description: 'A test product',
-      price: 29.99,
+describe('Product Search Service', () => {
+  it('should return products matching search criteria', async () => {
+    const searchQuery = {
+      keyword: 'laptop',
       category: 'electronics',
-      stock: 100
+      priceRange: { min: 500, max: 2000 }
     };
     
-    const result = await productService.createProduct(productData);
+    const result = await productService.searchProducts(searchQuery);
     
-    expect(result.status).toBe('created');
-    expect(result.product.id).toBeDefined();
+    expect(result.products).toHaveLength(5);
+    expect(result.total).toBeGreaterThan(0);
   });
 });
 ```
@@ -230,7 +195,6 @@ describe('Product Management', () => {
 
 ### Docker Deployment
 ```yaml
-# docker-compose.yml
 version: '3.8'
 services:
   api-gateway:
@@ -239,161 +203,61 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=${DATABASE_URL}
-      
-  product-service:
-    build: ./backend/services/product-service
-    environment:
-      - DATABASE_URL=${DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
+      - MONGODB_URI=${MONGODB_URI}
 ```
 
-### Kubernetes Deployment
-```yaml
-# k8s/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: shopflow-api
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: shopflow-api
-  template:
-    metadata:
-      labels:
-        app: shopflow-api
-    spec:
-      containers:
-      - name: api
-        image: shopflow/api:latest
-        ports:
-        - containerPort: 3000
-```
-
-## 🔒 Security Considerations
+## 🔒 Security
 
 ### Data Protection
-- User data encryption
-- Secure session management
-- API authentication and authorization
-- Secure file upload handling
-
-### Best Practices
-- Regular security updates
+- Password hashing with bcrypt
+- JWT token security
 - Input validation and sanitization
-- Secure configuration management
-- Regular security audits
+- XSS and CSRF protection
+- Rate limiting
 
-## 📊 Monitoring and Observability
-
-### Metrics and Logging
-- Application performance monitoring (APM)
-- Business metrics dashboard
-- Error tracking and alerting
-- User behavior analytics
+## 📊 Monitoring
 
 ### AI-Enhanced Monitoring
 ```javascript
-// AI-generated monitoring alerts
-const alerts = {
-  highErrorRate: {
-    threshold: '> 5% in 5 minutes',
-    action: 'auto-scale and notify'
-  },
-  slowResponse: {
-    threshold: 'response time > 2s',
-    action: 'investigate and optimize'
+const monitoring = {
+  alerts: {
+    highErrorRate: {
+      condition: 'error_rate > 5% in 5 minutes',
+      action: 'notify_team_and_scale'
+    }
   }
 };
 ```
 
-## 🤝 Contributing
-
-### Development Setup for Contributors
-1. Fork the repository
-2. Create a feature branch
-3. Use AI tools for code generation
-4. Write comprehensive tests
-5. Update documentation
-6. Submit pull request
-
-### AI-Assisted Contribution
-- Use provided AI prompts for consistency
-- Leverage code generation templates
-- Follow established patterns
-- Include proper error handling
-
 ## 📚 Learning Exercises
 
 ### For Business Analysts
-- [ ] Analyze user journey requirements
-- [ ] Create user stories for new features
-- [ ] Document business processes
+- [ ] Analyze user journey and requirements
+- [ ] Design new feature specifications
 
-### For Developers
-- [ ] Implement new API endpoints
-- [ ] Add product recommendation features
-- [ ] Optimize database queries
+### For Developers  
+- [ ] Implement new product features
+- [ ] Add payment gateway integrations
 
 ### For QA Engineers
 - [ ] Create comprehensive test suites
-- [ ] Implement automated testing
-- [ ] Set up performance monitoring
+- [ ] Implement security testing
 
 ### For DevOps
 - [ ] Optimize CI/CD pipelines
-- [ ] Implement container orchestration
 - [ ] Set up monitoring and alerting
 
 ### For Documentation
 - [ ] Create user guides
 - [ ] Generate API documentation
-- [ ] Write operational runbooks
-
-## 🔗 External Integrations
-
-### Payment Processing
-- Stripe (Primary)
-- PayPal (Alternative)
-- Bank transfers
-
-### Third-party Services
-- Email delivery (SendGrid)
-- SMS notifications (Twilio)
-- Image optimization (Cloudinary)
-- Search enhancement (Algolia)
 
 ## 📈 Performance Benchmarks
 
 ### Target Metrics
-- API response time: < 200ms (95th percentile)
-- Page load time: < 2 seconds
+- Page load time: < 2 seconds (95th percentile)
+- API response time: < 500ms (95th percentile)
 - System availability: 99.9% uptime
-- Concurrent users: 1000+ supported
-
-## 🐛 Known Issues and Limitations
-
-### Current Limitations
-- Basic recommendation system
-- Limited payment methods
-- Simple inventory management
-- Basic analytics dashboard
-
-### Planned Improvements
-- AI-powered recommendations
-- Advanced inventory forecasting
-- Enhanced analytics and reporting
-- Mobile application support
-
-## 📞 Support and Resources
-
-- [API Documentation](./docs/api/)
-- [User Guides](./docs/users/)
-- [Deployment Guide](./docs/deployment/)
-- [Troubleshooting](./docs/troubleshooting/)
-- [FAQ](./docs/faq/)
+- Concurrent users: 1000+ sustained
 
 ## 📄 License
 
