@@ -7,6 +7,7 @@ This guide provides comprehensive instructions for integrating and effectively u
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - GitHub account with Copilot subscription
 - Visual Studio Code or supported IDE
 - GitHub Copilot extension installed
@@ -15,19 +16,22 @@ This guide provides comprehensive instructions for integrating and effectively u
 ### Installation Steps
 
 1. **Install GitHub Copilot Extension**
-   ```bash
+
+  ```bash
    # For VS Code
    code --install-extension GitHub.copilot
    code --install-extension GitHub.copilot-chat
    ```
 
-2. **Sign in to GitHub**
+1. **Sign in to GitHub**
+
    - Open VS Code
    - Press `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (macOS)
    - Type "GitHub Copilot: Sign In"
    - Follow authentication prompts
 
-3. **Verify Installation**
+1. **Verify Installation**
+
    - Look for Copilot icon in status bar
    - Try typing a comment to trigger suggestions
    - Test Copilot Chat with `Ctrl+Shift+I`
@@ -254,7 +258,7 @@ function calculateShipping(weight: number, distance: number, method: string, pro
 
 ### Code Review Assistant
 
-```
+```text
 /explain
 
 Explain this user authentication function and identify potential security vulnerabilities:
@@ -271,7 +275,7 @@ Focus on:
 
 ### Architecture Planning
 
-```
+```text
 @workspace
 
 I'm building an e-commerce platform. Help me design the system architecture for:
@@ -292,7 +296,7 @@ Consider:
 
 ### Debugging Support
 
-```
+```text
 /fix
 
 This product search function is performing slowly in production:
@@ -300,6 +304,7 @@ This product search function is performing slowly in production:
 [paste code and performance logs]
 
 The search takes >3 seconds for large catalogs. Help me:
+
 1. Identify performance bottlenecks
 2. Optimize database queries
 3. Implement caching strategies
@@ -383,18 +388,21 @@ const apiKey = process.env.API_KEY; // Use environment variables
 ## 📚 Resources and Learning
 
 ### Official Documentation
+
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
 - [Copilot Best Practices](https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/)
 
 ### Web Development Resources
+
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [Web API Security Best Practices](https://owasp.org/www-project-api-security/)
 - [Node.js Security Guidelines](https://nodejs.org/en/docs/guides/security/)
 
 ### Training Materials
-- [Copilot Prompt Engineering](../exercises/copilot-prompt-engineering.md)
-- [Web Security Patterns](../exercises/security-patterns.md)
-- [API Development Best Practices](../exercises/api-best-practices.md)
+
+- [Copilot Prompt Engineering](./exercises/copilot-prompt-engineering.md)
+- [Web Security Patterns](./exercises/security-patterns.md)
+- [API Development Best Practices](./exercises/api-best-practices.md)
 
 ## 🔄 Continuous Improvement
 
@@ -414,4 +422,4 @@ const apiKey = process.env.API_KEY; // Use environment variables
 
 ---
 
-**Next Steps**: After setting up Copilot, proceed to [Cursor AI Workflows](./cursor-ai-guide.md) for additional AI-powered development tools.
+**Next Steps**: After setting up Copilot, move on to the [Web Development Guide](./web-development-guide.md) and [API Development Guide](./api-development-guide.md) to apply these prompt patterns inside ShopFlow.

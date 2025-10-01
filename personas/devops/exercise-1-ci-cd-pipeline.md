@@ -2,399 +2,243 @@
 
 ## 🎯 Exercise Objectives
 
-By the end of this exercise, you will be able to:
+By the end of this lab you will be able to:
 
-- Design and implement a complete CI/CD pipeline for the ShopFlow application
-- Set up automated testing, building, and deployment processes
-- Configure environment-specific deployments using AI-assisted DevOps tools
-- Implement monitoring and logging for deployment pipelines
+- Design and document a multi-stage CI/CD pipeline for the ShopFlow platform.
+- Automate quality, security, and deployment gates with AI-assisted workflows.
+- Provision cloud-ready infrastructure definitions with container orchestration.
+- Instrument monitoring, alerting, and incident response for production workloads.
+- Embed compliance, security, and rollback safeguards into delivery pipelines.
 
 ## 📋 Background
 
-The ShopFlow e-commerce platform needs a robust CI/CD pipeline to enable rapid, reliable deployments. Your task is to create a comprehensive pipeline that handles code quality checks, automated testing, containerization, and deployment to multiple environments.
+ShopFlow is the course e-commerce application (React + Node.js + MongoDB + Redis) that now ships with a complete frontend route map, deployment playbooks, and testing strategy. As the DevOps engineer you are responsible for turning these assets into a reliable build and release system that serves development, staging, and production environments.
 
-## 🎯 Your Mission
+## 📚 Reference Materials
 
-As a DevOps Engineer, you need to establish a complete CI/CD pipeline that supports the development team's workflow while ensuring system reliability and security.
+- [Azure deployment playbook](../../docs/deployment/azure-deployment.md)
+- [Docker deployment playbook](../../docs/deployment/docker-deployment.md)
+- [Testing strategy](../../docs/testing/testing-strategy.md)
+- [Sample application README](../../sample-app/README.md)
+- [GitHub Copilot prompting patterns](../../docs/github-copilot-guide.md)
 
-## 📝 Exercise Tasks
+## 🧠 AI-Assisted Tasks
 
-### Task 1: Pipeline Design with AI Assistance
+### Task 1: Pipeline Architecture (Design First)
 
-**Objective**: Design a comprehensive CI/CD pipeline architecture using AI tools.
+#### AI Prompt Template (Task 1)
 
-**AI Prompt Template**:
-```
-Act as an expert DevOps engineer. Help me design a CI/CD pipeline for a Node.js e-commerce application (ShopFlow) with the following requirements:
+```text
+Act as an expert DevOps architect. Design a complete CI/CD pipeline for the ShopFlow application with the following stack:
 
-**Application Stack:**
-- Frontend: React with TypeScript (Vite)
-- Backend: Node.js with Express
-- Database: MongoDB
-- Cache: Redis
-- Container: Docker
+Frontend: React (Vite, TypeScript)
+Backend: Node.js (Express + TypeScript)
+Data: MongoDB, Redis
+Container: Docker images published to GHCR
+Deployments: Azure App Service (frontend + API) and Azure Container Apps for background jobs
 
-**Requirements:**
-- Multi-environment deployment (dev, staging, production)
-- Automated testing (unit, integration, e2e)
-- Code quality checks (linting, security scanning)
-- Container image building and scanning
-- Database migrations
-- Zero-downtime deployments
-- Rollback capabilities
-- Performance monitoring
+Requirements:
+- Multi-environment (dev, staging, production) with approval gates
+- Automated linting, type checking, unit, integration, and e2e tests
+- Security scanning (SAST, dependency, container image) and license compliance
+- Docker image build, scan, and signature verification
+- Infrastructure as Code validation (Terraform and Kubernetes manifests)
+- Zero-downtime rollout strategy with automated rollback
+- Observability hooks (logs, metrics, traces)
 
-**Constraints:**
-- Budget-conscious approach
-- Team of 3-5 developers
-- High availability requirements for production
-
-Please provide:
-1. Pipeline architecture diagram (mermaid format)
-2. Detailed workflow steps
-3. Tool recommendations with justifications
-4. Best practices for each stage
-5. Security considerations
-6. Monitoring and alerting strategy
+Deliver:
+1. Mermaid diagram of the pipeline stages and artifact flow
+2. Detailed step-by-step workflow description
+3. Tool recommendations with justification and cost notes
+4. Security, compliance, and governance considerations
+5. Monitoring and alerting strategy integrated with deployments
 ```
 
-**Expected Deliverables:**
-1. Pipeline architecture document (save as `pipeline-architecture.md`)
-2. Tool comparison matrix
-3. Risk assessment and mitigation strategies
+#### Your Task (Task 1)
 
-### Task 2: GitHub Actions Workflow Implementation
+1. Generate the pipeline architecture using Copilot Chat or another AI assistant.
+2. Tailor the output to align with ShopFlow naming conventions and environments.
+3. Convert the plan into `docs/pipeline-architecture.md` and share with the team.
 
-**Objective**: Create GitHub Actions workflows for the complete CI/CD process.
+### Task 2: GitHub Actions Workflows
 
-**AI Prompt Template**:
-```
-Create comprehensive GitHub Actions workflows for the ShopFlow e-commerce application. I need separate workflows for:
+#### AI Prompt Template (Task 2)
 
-1. **Continuous Integration Workflow**
-   - Triggered on pull requests to main branch
-   - Node.js version matrix testing (16, 18, 20)
-   - Run linting (ESLint, Prettier)
-   - Run unit and integration tests
-   - Generate test coverage reports
-   - Security vulnerability scanning
-   - Build application bundles
-   - Create and scan Docker images
+```text
+Create GitHub Actions workflows for ShopFlow with the following deliverables:
 
-2. **Continuous Deployment Workflow**
-   - Triggered on push to main branch
-   - Deploy to staging environment first
-   - Run end-to-end tests against staging
-   - Deploy to production with approval gate
-   - Database migration handling
-   - Health checks and rollback logic
+1. `ci.yml` (pull_request to main)
+   - Node.js matrix (18.x, 20.x)
+   - Install frontend and backend dependencies with caching
+   - Run linting, type checking, unit, and integration tests
+   - Execute Playwright or Cypress e2e suite against the Vite dev server
+   - Run npm audit, Trivy (container), and license compliance checks
+   - Build frontend and backend artifacts
+   - Publish coverage summary as a job artifact
 
-**Application Details:**
-- Frontend: React with Vite (port 3000)
-- Backend: Node.js Express API (port 5000)
-- Database: MongoDB with Mongoose
-- Cache: Redis
-- Testing: Jest for unit tests, Playwright for e2e
-- Container registry: Docker Hub or GitHub Container Registry
+2. `cd.yml` (push to main)
+   - Build and push Docker images to GHCR with semantic tags
+   - Scan images with Trivy and sign with cosign
+   - Deploy to staging App Service and run smoke tests
+   - Require manual approval for production promotion
+   - Deploy production after approval with health checks and rollback guardrails
+   - Notify Slack/Teams channels on success or failure
 
-**Requirements:**
-- Use environment secrets for sensitive data
-- Implement proper caching for dependencies
-- Include deployment notifications (Slack/Discord)
-- Add manual approval for production deployments
-- Include comprehensive error handling
-- Support for feature branch deployments
+3. `feature-deploy.yml` (push to feature/*)
+   - Spin up ephemeral environments using Azure Container Apps
+   - Run targeted tests and tear down on completion
 
-Please provide complete workflow files with inline comments explaining each step.
+Include reusable composite actions for installation steps, environment secrets, and caching.
 ```
 
-**Expected Deliverables:**
-1. `.github/workflows/ci.yml` - Continuous Integration workflow
-2. `.github/workflows/cd.yml` - Continuous Deployment workflow
-3. `.github/workflows/feature-deploy.yml` - Feature branch deployment
-4. Documentation explaining workflow stages and triggers
+#### Your Task (Task 2)
 
-### Task 3: Infrastructure as Code with AI
+1. Use the prompt to scaffold the workflows under `.github/workflows/`.
+2. Ensure secrets and environments (`dev`, `staging`, `production`) are referenced consistently.
+3. Document workflow stages in `docs/workflow-reference.md` for future learners.
 
-**Objective**: Create infrastructure definitions using Infrastructure as Code principles.
+### Task 3: Infrastructure as Code
 
-**AI Prompt Template**:
-```
-Help me create Infrastructure as Code templates for the ShopFlow e-commerce platform deployment. I need:
+#### AI Prompt Template (Task 3)
 
-**Target Environment:**
-- Cloud Provider: AWS (or alternatives like DigitalOcean, GCP)
-- Containerized deployment using Docker
-- Load balancer for high availability
-- Managed database services
-- CDN for static assets
-- Monitoring and logging services
+```text
+Generate Infrastructure-as-Code assets for ShopFlow:
 
-**Requirements:**
-1. **Docker Compose for Local Development**
-   - Frontend, Backend, MongoDB, Redis services
-   - Volume mounts for development
-   - Environment variable management
-   - Health checks for all services
+- Docker Compose files for local (developer) and production parity setups
+- Kubernetes manifests (Deployments, Services, Ingress, HPA, ConfigMaps, Secrets) for the API and background workers
+- Terraform modules targeting Azure resources:
+  * Resource group, virtual network, subnets
+  * Azure App Service plan + Web Apps
+  * Azure Cosmos DB for Mongo API
+  * Azure Cache for Redis
+  * Azure Container Registry
+  * Application Insights + Log Analytics workspace
+  * Key Vault for secrets
 
-2. **Kubernetes Manifests for Production**
-   - Deployment configurations
-   - Service definitions
-   - ConfigMaps and Secrets
-   - Ingress for routing
-   - HorizontalPodAutoscaler
-   - PersistentVolumeClaims for data
-
-3. **Terraform (or alternative) for Cloud Infrastructure**
-   - Network setup (VPC, subnets, security groups)
-   - Container orchestration cluster (EKS/GKE/AKS)
-   - Managed database instances
-   - Load balancer and CDN setup
-   - Monitoring and logging services
-
-Please provide:
-- Complete configuration files with comments
-- Environment-specific variable files
-- Deployment scripts and documentation
-- Best practices for secrets management
-- Cost optimization recommendations
+Provide separate variable sets for dev/staging/prod, and include scripts for running terraform plan/apply with approval gates. Highlight cost optimisation levers.
 ```
 
-**Expected Deliverables:**
-1. `docker-compose.yml` and `docker-compose.prod.yml`
-2. Kubernetes manifests in `k8s/` directory
-3. Terraform configuration files
-4. Environment configuration templates
-5. Deployment documentation
+#### Your Task (Task 3)
 
-### Task 4: Monitoring and Observability Setup
+1. Create `infrastructure/docker-compose.yml` and `docker-compose.prod.yml` aligned with the AI output.
+2. Scaffold Kubernetes manifests under `infrastructure/k8s/` with environment overlays.
+3. Produce Terraform modules under `infrastructure/terraform/` with environment workspaces.
+4. Write `docs/infrastructure-readme.md` summarising provisioning steps.
 
-**Objective**: Implement comprehensive monitoring, logging, and alerting for the application and infrastructure.
+### Task 4: Monitoring and Observability
 
-**AI Prompt Template**:
-```
-Design a comprehensive monitoring and observability solution for the ShopFlow e-commerce platform. I need:
+#### AI Prompt Template (Task 4)
 
-**Application Stack:**
-- Node.js backend with Express
-- React frontend
-- MongoDB database
-- Redis cache
-- Containerized deployment
+```text
+Design a comprehensive monitoring stack for ShopFlow covering application, infrastructure, and business metrics. Include:
 
-**Monitoring Requirements:**
-1. **Application Performance Monitoring (APM)**
-   - API response times and error rates
-   - Database query performance
-   - Cache hit/miss ratios
-   - User experience metrics
-
-2. **Infrastructure Monitoring**
-   - CPU, memory, disk usage
-   - Network performance
-   - Container health and resource usage
-   - Database and cache performance
-
-3. **Business Metrics**
-   - User registration and login rates
-   - Product view and purchase metrics
-   - Revenue and conversion tracking
-   - Shopping cart abandonment rates
-
-4. **Logging Strategy**
-   - Centralized log aggregation
-   - Structured logging format
-   - Log retention policies
-   - Security event logging
-
-5. **Alerting Rules**
-   - Critical system failures
-   - Performance degradation
-   - Security incidents
-   - Business metric anomalies
-
-**Technology Preferences:**
-- Open source solutions preferred (Prometheus, Grafana, ELK stack)
-- Cloud-native options acceptable (CloudWatch, DataDog)
-- Integration with existing CI/CD pipeline
-
-Please provide:
-- Complete monitoring stack configuration
-- Dashboard definitions (JSON/YAML)
-- Alerting rules and notification channels
-- Custom metrics implementation code
-- Runbook templates for common incidents
+- Prometheus + Grafana dashboards for API latency, error rates, queue depth, cache hit ratios
+- Application Insights or OpenTelemetry traces integrated with the Node.js backend
+- Synthetic monitoring for the React frontend (key journeys)
+- Alert rules for SLA/SLO breaches with escalation policy
+- Business KPIs (checkout conversion, cart abandonment, average order value)
+- Incident response runbooks with ownership and resolution steps
 ```
 
-**Expected Deliverables:**
-1. Monitoring stack configuration (Prometheus, Grafana, etc.)
-2. Custom dashboard definitions
-3. Alerting rules and escalation policies
-4. Application instrumentation code
-5. Incident response runbooks
+#### Your Task (Task 4)
 
-### Task 5: Security and Compliance Automation
+1. Generate dashboard definitions (JSON/YAML) and store them in `monitoring/dashboards/`.
+2. Capture alert policies and runbooks in `monitoring/alerts.md` and `monitoring/runbooks.md`.
+3. Wire log/metric exporters into the infrastructure IaC (Terraform, Kubernetes manifests).
 
-**Objective**: Implement automated security scanning and compliance checks in the pipeline.
+### Task 5: Security & Compliance Automation
 
-**AI Prompt Template**:
-```
-Help me implement comprehensive security and compliance automation for the ShopFlow e-commerce platform CI/CD pipeline:
+#### AI Prompt Template (Task 5)
 
-**Security Requirements:**
-1. **Static Code Analysis**
-   - Security vulnerability scanning (SAST)
-   - Dependency vulnerability checking
-   - Code quality and security standards
-   - License compliance checking
+```text
+Help me implement end-to-end security and compliance automation for the ShopFlow CI/CD pipeline:
 
-2. **Container Security**
-   - Base image vulnerability scanning
-   - Runtime security monitoring
-   - Image signing and verification
-   - Registry security policies
-
-3. **Infrastructure Security**
-   - Infrastructure as Code security scanning
-   - Cloud resource compliance checking
-   - Network security validation
-   - Access control auditing
-
-4. **Application Security**
-   - Dynamic application security testing (DAST)
-   - API security testing
-   - Authentication and authorization testing
-   - Data encryption validation
-
-5. **Compliance Monitoring**
-   - PCI DSS compliance (for payment processing)
-   - GDPR compliance (for user data)
-   - SOC 2 compliance preparation
-   - Audit logging and reporting
-
-**Integration Requirements:**
-- Integrate with GitHub Actions pipeline
-- Fail builds on critical security issues
-- Generate security reports for stakeholders
-- Automated security notifications
-- Integration with security management tools
-
-Please provide:
-- Security scanning tool configurations
-- GitHub Actions workflow integrations
-- Security policy definitions
-- Compliance reporting templates
-- Security incident response automation
+- Static application security testing (SAST) and dependency scanning (npm audit, Trivy, Snyk)
+- Container image signing and policy enforcement
+- Infrastructure-as-Code scanning (tfsec, Checkov) and policy-as-code (Open Policy Agent)
+- Dynamic application security testing (OWASP ZAP / Burp) against staging
+- Compliance report generation (PCI DSS, GDPR, SOC 2 readiness)
+- Automated incident response runbooks triggered by failed checks
 ```
 
-**Expected Deliverables:**
-1. Security scanning configurations
-2. Compliance checking automation
-3. Security reporting templates
-4. Incident response automation scripts
-5. Security policy documentation
+#### Your Task (Task 5)
+
+1. Integrate security scanners as dedicated jobs in the CI workflow with severity gating.
+2. Configure policy-as-code checks before Terraform/Kubernetes deploy stages.
+3. Produce security reports in `security/reports/` and document response procedures in `security/runbooks.md`.
+
+## 📊 Deliverables
+
+### 1. Architecture & Documentation
+
+- [ ] `docs/pipeline-architecture.md`
+- [ ] `docs/workflow-reference.md`
+- [ ] `docs/infrastructure-readme.md`
+
+### 2. GitHub Actions Workflows
+
+- [ ] `.github/workflows/ci.yml`
+- [ ] `.github/workflows/cd.yml`
+- [ ] `.github/workflows/feature-deploy.yml`
+
+### 3. Infrastructure as Code
+
+- [ ] `infrastructure/docker-compose*.yml`
+- [ ] `infrastructure/k8s/` manifests with overlays
+- [ ] `infrastructure/terraform/` modules and environment variables
+
+### 4. Monitoring & Security Assets
+
+- [ ] `monitoring/dashboards/` and `monitoring/alerts.md`
+- [ ] `monitoring/runbooks.md`
+- [ ] `security/reports/` and `security/runbooks.md`
 
 ## 🚀 Implementation Steps
 
-### Step 1: Environment Setup
-1. Fork the ShopFlow repository
-2. Set up GitHub Actions in your repository
-3. Configure necessary secrets and variables
-4. Set up development and staging environments
+1. Fork or clone the ShopFlow repository and configure GitHub environments (`dev`, `staging`, `production`).
+2. Stand up local services with `docker compose up mongodb redis` and validate the existing frontend routes.
+3. Implement and test the CI workflow, iterating until lint/test/security jobs pass reliably.
+4. Build Docker images locally, push to a personal registry, and validate Azure deployment using the provided playbooks.
+5. Layer in Terraform/Kubernetes definitions, integrating monitoring exporters and secrets handling.
+6. Run end-to-end smoke tests and document rollback strategies for each environment.
 
-### Step 2: Pipeline Implementation
-1. Implement the CI workflow first
-2. Test with a sample pull request
-3. Implement the CD workflow
-4. Test deployment to staging environment
+## ✅ Success Criteria
 
-### Step 3: Infrastructure Provisioning
-1. Set up local development environment with Docker Compose
-2. Implement Kubernetes configurations
-3. Set up cloud infrastructure with Terraform
-4. Test deployments across all environments
+- CI runs complete within agreed SLAs (< 15 minutes for pull requests).
+- High-confidence quality gates (unit/integration/e2e/security) block unsafe merges.
+- Deployments are reproducible and observable across environments.
+- IaC artefacts provision Azure resources aligned with security and cost guidelines.
+- Monitoring and alerting provide actionable insight with documented on-call runbooks.
 
-### Step 4: Monitoring Integration
-1. Deploy monitoring stack
-2. Configure dashboards and alerts
-3. Implement custom metrics in application
-4. Test alert scenarios
+## 📚 Learning Resources
 
-### Step 5: Security Implementation
-1. Configure security scanning tools
-2. Integrate with CI/CD pipeline
-3. Set up compliance monitoring
-4. Test security incident response
+### Official Documentation
 
-## 📊 Success Criteria
+- [GitHub Actions documentation](https://docs.github.com/en/actions)
+- [Azure App Service deployment guidance](https://learn.microsoft.com/azure/app-service/)
+- [Terraform on Azure](https://learn.microsoft.com/azure/developer/terraform/)
+- [Prometheus & Grafana Getting Started](https://prometheus.io/docs/introduction/overview/)
 
-Your implementation will be evaluated based on:
+### Course Assets
 
-1. **Pipeline Completeness** (25%)
-   - All required stages implemented
-   - Proper error handling and rollback
-   - Environment-specific configurations
+- [Azure deployment playbook](../../docs/deployment/azure-deployment.md)
+- [Docker deployment playbook](../../docs/deployment/docker-deployment.md)
+- [Testing strategy](../../docs/testing/testing-strategy.md)
+- [Sample app frontend route overview](../../sample-app/README.md#-frontend-route-overview)
 
-2. **Code Quality** (20%)
-   - Clean, well-documented code
-   - Best practices followed
-   - Proper secret management
+### Prompting Guides
 
-3. **Security Implementation** (20%)
-   - Comprehensive security scanning
-   - Compliance automation
-   - Incident response procedures
+- [GitHub Copilot guide](../../docs/github-copilot-guide.md)
+- [Business Analyst exercise](../business-analyst/exercise-1-product-management.md) for upstream context
+- [QA testing exercise](../qa/exercise-1-testing-strategy.md) to integrate quality gates
 
-4. **Monitoring Coverage** (20%)
-   - Complete observability stack
-   - Meaningful dashboards and alerts
-   - Business metrics tracking
+## 🔗 Next Steps
 
-5. **Documentation Quality** (15%)
-   - Clear setup instructions
-   - Troubleshooting guides
-   - Best practices documentation
-
-## 🔍 Learning Resources
-
-### Essential DevOps Concepts
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Docker Best Practices](https://docs.docker.com/develop/dev-best-practices/)
-- [Kubernetes Concepts](https://kubernetes.io/docs/concepts/)
-- [Terraform Getting Started](https://learn.hashicorp.com/terraform)
-
-### Monitoring and Observability
-- [Prometheus Documentation](https://prometheus.io/docs/)
-- [Grafana Tutorials](https://grafana.com/tutorials/)
-- [OpenTelemetry Guide](https://opentelemetry.io/docs/)
-
-### Security Resources
-- [OWASP DevSecOps Guideline](https://owasp.org/www-project-devsecops-guideline/)
-- [Container Security Best Practices](https://sysdig.com/blog/dockerfile-best-practices/)
-
-## 🎯 Extended Challenges
-
-Once you complete the basic exercise, try these advanced challenges:
-
-1. **Multi-Cloud Deployment**: Implement deployment across multiple cloud providers
-2. **Chaos Engineering**: Implement chaos testing in your pipeline
-3. **Advanced Monitoring**: Implement distributed tracing and APM
-4. **GitOps Implementation**: Implement GitOps with ArgoCD or Flux
-5. **Cost Optimization**: Implement automated cost monitoring and optimization
-
-## 📚 Deliverables Checklist
-
-- [ ] Pipeline architecture documentation
-- [ ] Complete GitHub Actions workflows
-- [ ] Infrastructure as Code templates
-- [ ] Monitoring and alerting configuration
-- [ ] Security automation implementation
-- [ ] Deployment documentation
-- [ ] Troubleshooting runbooks
-- [ ] Cost analysis and optimization recommendations
+1. Pair with developers to align API contracts and release cadence.
+2. Coordinate with QA to embed their automation suites in the CI workflow.
+3. Share deployment runbooks with the documentation persona for publication.
+4. Schedule a simulated incident response drill using the new monitoring stack.
 
 ---
 
-**Time Estimate**: 8-12 hours
-**Difficulty Level**: Intermediate to Advanced
-**Prerequisites**: Basic understanding of Git, Docker, and cloud platforms
+Ready to automate ShopFlow releases with confidence? Kick off Task 1 and design the pipeline architecture! 🚀

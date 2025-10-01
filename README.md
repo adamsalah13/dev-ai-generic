@@ -54,17 +54,44 @@ This course is designed for cross-functional development teams including:
 ## 📁 Repository Structure
 
 ```
-├── personas/                    # Persona-specific guides and exercises
-│   ├── business-analyst/       # BA workflows and tools
-│   ├── developer/              # Development workflows
-│   ├── devops/                 # CI/CD and infrastructure
-│   ├── qa/                     # Testing and quality assurance
-│   └── documentation/          # Technical writing workflows
-├── sample-app/                  # Sample web application
-├── templates/                   # AI prompt templates
-├── workflows/                   # GitHub Actions examples
-└── docs/                       # Course documentation
+├── docs/                       # Course documentation, guides, and new user/instructor playbooks
+├── personas/                   # Persona-specific guides and exercises
+│   ├── business-analyst/
+│   ├── developer/
+│   ├── devops/
+│   ├── qa/
+│   └── documentation/
+├── sample-app/                 # React storefront + backend stubs for labs
+├── templates/                  # Prompt and documentation templates
+├── SYSTEM_DESIGN.md            # High-level architecture notes
+└── README.md
 ```
+
+## 🧭 Sample Application Highlights
+
+The `sample-app/frontend` project ships with mock-driven commerce experiences that align with the training labs:
+
+- **Home Page** – hero merchandising, featured categories, and curated items.
+- **Products Catalog** (`/products`) – faceted search, sorting, pagination, and quick-add hooks.
+- **Product Detail** (`/products/:id`) – gallery carousel, specs tabs, ratings, and upsell copy.
+- **Cart & Checkout** (`/cart`, `/checkout`) – order review, form validation stubs, and confirmation screen.
+- **Auth Flows** (`/login`, `/register`) – ready-to-wire forms with validation helpers.
+- **Profile Dashboard** (`/profile`) – account summary placeholders to integrate with APIs.
+- **Admin Workspace** (`/admin`) – inventory snapshot, tabbed management views, and guard rails.
+
+Each persona exercise references these screens so learners can implement API integrations, testing, and documentation against tangible UI surfaces.
+
+## 📘 Key Documentation
+
+| Topic | Location | What it Covers |
+| --- | --- | --- |
+| Frontend & API guidance | `docs/web-development-guide.md`, `docs/api-development-guide.md` | Patterns, prompting ideas, and checklists for building ShopFlow features. |
+| Data modelling | `docs/database-design-guide.md` | Entity design, relationships, and persistence practices for the course backend. |
+| Deployment playbooks | `docs/deployment/azure-deployment.md`, `docs/deployment/docker-deployment.md` | End-to-end instructions for pushing ShopFlow to Azure or container platforms. |
+| Quality strategy | `docs/testing/testing-strategy.md` | Testing pyramid, tooling, and guardrails used across the labs. |
+| AI tooling primer | `docs/github-copilot-guide.md`, `docs/cursor-ai-guide.md` | Prompt patterns and workflows tailored to this curriculum. |
+| Learner support | `docs/user-guide.md` | End-user walkthroughs of the sample app experience. |
+| Instructor facilitation | `docs/instructor-delivery-guide.md` | Delivery agenda, checkpoints, and assessment guidance. |
 
 ## 🛠️ Prerequisites
 
@@ -89,6 +116,7 @@ By the end of this course, participants will be able to:
 ## 🤝 Contributing
 
 This is a collaborative learning environment. Please:
+
 1. Fork the repository
 2. Create feature branches for exercises
 3. Submit pull requests for review

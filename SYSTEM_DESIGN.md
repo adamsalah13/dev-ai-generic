@@ -176,25 +176,25 @@ graph TB
         S3[(AWS S3<br/>File Storage)]
         ES[(Elasticsearch<br/>Search & Analytics)]
     end
-    
+
     subgraph "External Services"
         EMAIL[Email Service<br/>SendGrid/Mailgun]
         SMS[SMS Service<br/>Twilio]
         STORAGE[Cloud Storage<br/>AWS S3/Cloudinary]
         SEARCH[Search Engine<br/>Algolia/Elasticsearch]
     end
-    
+
     subgraph "Infrastructure"
         DO[Docker Containers]
         K8[Kubernetes Orchestration]
         PR[Prometheus Monitoring]
         GR[Grafana Dashboards]
     end
-    
+
     WEB --> LB
     MOB --> LB
     API_CLI --> LB
-    
+
     LB --> AG
     AG --> RL
     RL --> US
@@ -202,7 +202,7 @@ graph TB
     RL --> OS
     RL --> NS
     RL --> AS
-    
+
     US --> MONGO
     US --> RD
     PS --> MONGO
@@ -212,22 +212,22 @@ graph TB
     NS --> RD
     AS --> MONGO
     AS --> S3
-    
+
     NS --> EMAIL
     NS --> SMS
     AS --> STORAGE
     PS --> SEARCH
-    
+
     US --> DO
     PS --> DO
     OS --> DO
     NS --> DO
     AS --> DO
-    
+
     DO --> K8
     K8 --> PR
     PR --> GR
-    
+
     class WEB,MOB,API_CLI fill:#e1f5fe
     class AG,LB,RL fill:#f3e5f5
     class US,PS,OS,NS,AS fill:#e8f5e8
@@ -256,7 +256,7 @@ erDiagram
         jsonb preferences
         jsonb metadata
     }
-    
+
     USER_PROFILES {
         uuid id PK
         uuid user_id FK
@@ -269,7 +269,7 @@ erDiagram
         timestamp created_at
         timestamp updated_at
     }
-    
+
     PRODUCTS {
         uuid id PK
         varchar name
@@ -284,7 +284,7 @@ erDiagram
         timestamp updated_at
         uuid created_by FK
     }
-    
+
     ORDERS {
         uuid id PK
         uuid user_id FK
@@ -301,7 +301,7 @@ erDiagram
         jsonb shipping_address
         jsonb billing_address
     }
-    
+
     ORDER_ITEMS {
         uuid id PK
         uuid order_id FK
@@ -311,7 +311,7 @@ erDiagram
         decimal total_price
         timestamp created_at
     }
-    
+
     NOTIFICATIONS {
         uuid id PK
         uuid user_id FK
@@ -327,7 +327,7 @@ erDiagram
         timestamp created_at
         jsonb metadata
     }
-    
+
     AUDIT_LOGS {
         uuid id PK
         uuid user_id FK
@@ -342,7 +342,7 @@ erDiagram
         timestamp created_at
         jsonb metadata
     }
-    
+
     USERS ||--o{ USER_PROFILES : "has profile"
     USERS ||--o{ ORDERS : "places"
     USERS ||--o{ PRODUCTS : "creates"
@@ -365,61 +365,61 @@ graph TD
         AI_REQ[AI Requirements<br/>Analysis]
         US[User Stories<br/>Generation]
     end
-    
+
     subgraph "Design Phase"
         ARCH[Architecture<br/>Design]
         AI_ARCH[AI Architecture<br/>Suggestions]
         API_DESIGN[API Design<br/>Generation]
     end
-    
+
     subgraph "Development Phase"
         CODE_GEN[AI Code<br/>Generation]
         CODE_REV[AI Code<br/>Review]
         TEST_GEN[AI Test<br/>Generation]
     end
-    
+
     subgraph "Testing Phase"
         AUTO_TEST[Automated<br/>Testing]
         AI_TEST[AI Test<br/>Analysis]
         PERF_TEST[Performance<br/>Testing]
     end
-    
+
     subgraph "Deployment Phase"
         CI_CD[CI/CD Pipeline]
         AI_DEPLOY[AI Deployment<br/>Optimization]
         MONITOR[Monitoring<br/>Setup]
     end
-    
+
     subgraph "Documentation Phase"
         DOC_GEN[AI Documentation<br/>Generation]
         API_DOCS[API Documentation]
         USER_GUIDES[User Guides]
     end
-    
+
     REQ --> AI_REQ
     AI_REQ --> US
     US --> ARCH
-    
+
     ARCH --> AI_ARCH
     AI_ARCH --> API_DESIGN
     API_DESIGN --> CODE_GEN
-    
+
     CODE_GEN --> CODE_REV
     CODE_REV --> TEST_GEN
     TEST_GEN --> AUTO_TEST
-    
+
     AUTO_TEST --> AI_TEST
     AI_TEST --> PERF_TEST
     PERF_TEST --> CI_CD
-    
+
     CI_CD --> AI_DEPLOY
     AI_DEPLOY --> MONITOR
     MONITOR --> DOC_GEN
-    
+
     DOC_GEN --> API_DOCS
     API_DOCS --> USER_GUIDES
     USER_GUIDES --> REQ
-    
+
     class REQ,AI_REQ,US fill:#e3f2fd
     class ARCH,AI_ARCH,API_DESIGN fill:#e8f5e8
     class CODE_GEN,CODE_REV,TEST_GEN fill:#fff3e0
@@ -442,13 +442,13 @@ graph TD
         BRANCH[Feature Branch]
         PR[Pull Request]
     end
-    
+
     subgraph "AI-Enhanced Development"
         AI_CODE[AI Code Generation]
         AI_TEST[AI Test Generation]
         AI_REV[AI Code Review]
     end
-    
+
     subgraph "Continuous Integration"
         TRIG[Workflow Trigger]
         BUILD[Build Application]
@@ -457,7 +457,7 @@ graph TD
         SEC[Security Scan]
         QUAL[Quality Gates]
     end
-    
+
     subgraph "Continuous Deployment"
         STAGE[Staging Deploy]
         E2E[E2E Tests]
@@ -465,40 +465,40 @@ graph TD
         APPROVE[Manual Approval]
         PROD[Production Deploy]
     end
-    
+
     subgraph "Monitoring & Feedback"
         MON[Application Monitoring]
         LOG[Log Aggregation]
         ALERT[Alerting]
         FEEDBACK[Feedback Loop]
     end
-    
+
     DEV --> FORK
     FORK --> BRANCH
     BRANCH --> AI_CODE
     AI_CODE --> AI_TEST
     AI_TEST --> AI_REV
     AI_REV --> PR
-    
+
     PR --> TRIG
     TRIG --> BUILD
     BUILD --> UNIT
     UNIT --> INT
     INT --> SEC
     SEC --> QUAL
-    
+
     QUAL --> STAGE
     STAGE --> E2E
     E2E --> PERF
     PERF --> APPROVE
     APPROVE --> PROD
-    
+
     PROD --> MON
     MON --> LOG
     LOG --> ALERT
     ALERT --> FEEDBACK
     FEEDBACK --> DEV
-    
+
     class DEV,FORK,BRANCH,PR fill:#e3f2fd
     class AI_CODE,AI_TEST,AI_REV fill:#e8f5e8
     class TRIG,BUILD,UNIT,INT,SEC,QUAL fill:#fff3e0
@@ -520,55 +520,55 @@ graph TB
         TRACE[Distributed Tracing]
         LOG[Application Logs]
     end
-    
+
     subgraph "Collection Layer"
         PROM[Prometheus]
         JAEGER[Jaeger]
         FLUENTD[Fluentd]
         OTEL[OpenTelemetry]
     end
-    
+
     subgraph "Storage Layer"
         TSDB[Time Series DB]
         ELASTIC[Elasticsearch]
         S3_LOGS[S3 Log Storage]
     end
-    
+
     subgraph "Visualization Layer"
         GRAFANA[Grafana Dashboards]
         KIBANA[Kibana]
         ALERTS[Alert Manager]
     end
-    
+
     subgraph "AI-Enhanced Monitoring"
         ANOM[Anomaly Detection]
         PRED[Predictive Analysis]
         AUTOFIX[Auto-Remediation]
     end
-    
+
     APP --> METRIC
     APP --> TRACE
     APP --> LOG
-    
+
     METRIC --> PROM
     TRACE --> JAEGER
     LOG --> FLUENTD
     OTEL --> PROM
     OTEL --> JAEGER
-    
+
     PROM --> TSDB
     JAEGER --> ELASTIC
     FLUENTD --> ELASTIC
     FLUENTD --> S3_LOGS
-    
+
     TSDB --> GRAFANA
     ELASTIC --> KIBANA
     GRAFANA --> ALERTS
-    
+
     GRAFANA --> ANOM
     KIBANA --> PRED
     ALERTS --> AUTOFIX
-    
+
     class APP,METRIC,TRACE,LOG fill:#e3f2fd
     class PROM,JAEGER,FLUENTD,OTEL fill:#e8f5e8
     class TSDB,ELASTIC,S3_LOGS fill:#fff3e0
@@ -590,7 +590,7 @@ graph TD
         GIT[Git Workflows]
         COLLAB[Collaboration Setup]
     end
-    
+
     subgraph "Persona-Specific Learning"
         BA_TRACK[BA Track:<br/>Requirements & Stories]
         DEV_TRACK[Developer Track:<br/>Code & Testing]
@@ -598,56 +598,56 @@ graph TD
         DO_TRACK[DevOps Track:<br/>CI/CD & Infrastructure]
         DOC_TRACK[Documentation Track:<br/>Technical Writing]
     end
-    
+
     subgraph "Integration Phase"
         CROSS_COLLAB[Cross-Persona<br/>Collaboration]
         INTEGRATION[System Integration<br/>Exercises]
         WEB_APP[Web Application<br/>Development]
     end
-    
+
     subgraph "Advanced Topics"
         ARCHITECTURE[Architecture Patterns]
         SCALE[Scalability & Performance]
         AI_OPS[AI Operations]
         MONITORING[Monitoring & Observability]
     end
-    
+
     subgraph "Capstone Project"
         FINAL[End-to-End<br/>Implementation]
         REVIEW[Peer Review<br/>& Assessment]
         DEPLOY[Production<br/>Deployment]
         RETRO[Retrospective<br/>& Learning]
     end
-    
+
     SETUP --> AI_INTRO
     AI_INTRO --> GIT
     GIT --> COLLAB
-    
+
     COLLAB --> BA_TRACK
     COLLAB --> DEV_TRACK
     COLLAB --> QA_TRACK
     COLLAB --> DO_TRACK
     COLLAB --> DOC_TRACK
-    
+
     BA_TRACK --> CROSS_COLLAB
     DEV_TRACK --> CROSS_COLLAB
     QA_TRACK --> CROSS_COLLAB
     DO_TRACK --> CROSS_COLLAB
     DOC_TRACK --> CROSS_COLLAB
-    
+
     CROSS_COLLAB --> INTEGRATION
     INTEGRATION --> WEB_APP
-    
+
     WEB_APP --> ARCHITECTURE
     ARCHITECTURE --> SCALE
     SCALE --> AI_OPS
     AI_OPS --> MONITORING
-    
+
     MONITORING --> FINAL
     FINAL --> REVIEW
     REVIEW --> DEPLOY
     DEPLOY --> RETRO
-    
+
     class SETUP,AI_INTRO,GIT,COLLAB fill:#e3f2fd
     class BA_TRACK,DEV_TRACK,QA_TRACK,DO_TRACK,DOC_TRACK fill:#e8f5e8
     class CROSS_COLLAB,INTEGRATION,WEB_APP fill:#fff3e0
@@ -662,17 +662,17 @@ graph TD
 ### Technology Stack Summary
 
 | Layer | Technology | Purpose | AI Enhancement |
-|-------|------------|---------|----------------|
-| **Frontend** | React 18 + TypeScript | User Interface | AI-generated components |
-| **API Gateway** | Express.js + Node.js | Request routing | AI-optimized routing |
-| **Microservices** | Node.js + TypeScript | Business logic | AI-generated services |
-| **Database** | MongoDB | Document storage | AI query optimization |
-| **Cache** | Redis 6 | Performance optimization | AI caching strategies |
-| **Search** | Elasticsearch | Data search & analytics | AI-powered search |
-| **Message Queue** | RabbitMQ | Async processing | AI message prioritization |
-| **Containerization** | Docker + Kubernetes | Deployment | AI resource optimization |
-| **Monitoring** | Prometheus + Grafana | Observability | AI anomaly detection |
-| **CI/CD** | GitHub Actions | Automation | AI deployment strategies |
+| --- | --- | --- | --- |
+| Frontend | React 18 + TypeScript | User Interface | AI-generated components |
+| API Gateway | Express.js + Node.js | Request routing | AI-optimized routing |
+| Microservices | Node.js + TypeScript | Business logic | AI-generated services |
+| Database | MongoDB | Document storage | AI query optimization |
+| Cache | Redis 6 | Performance optimization | AI caching strategies |
+| Search | Elasticsearch | Data search & analytics | AI-powered search |
+| Message Queue | RabbitMQ | Async processing | AI message prioritization |
+| Containerization | Docker + Kubernetes | Deployment | AI resource optimization |
+| Monitoring | Prometheus + Grafana | Observability | AI anomaly detection |
+| CI/CD | GitHub Actions | Automation | AI deployment strategies |
 
 ---
 
@@ -688,43 +688,43 @@ graph TB
         CODE[Code Quality<br/>Metrics]
         DOC[Documentation<br/>Quality]
     end
-    
+
     subgraph "Team Assessment"
         COLLAB[Collaboration<br/>Effectiveness]
         PROCESS[Process<br/>Adherence]
         DELIVERY[Delivery<br/>Quality]
         COMM[Communication<br/>Skills]
     end
-    
+
     subgraph "Project Assessment"
         FUNC[Functional<br/>Requirements]
         PERF[Performance<br/>Benchmarks]
         SEC[Security<br/>Standards]
         QUALITY[Code<br/>Quality]
     end
-    
+
     subgraph "AI Enhancement Assessment"
         EFFICIENCY[Development<br/>Efficiency Gain]
         QUALITY_IMP[Quality<br/>Improvement]
         AUTOMATION[Automation<br/>Level]
         INNOVATION[Innovation<br/>Factor]
     end
-    
+
     TECH --> COLLAB
     AI_USE --> PROCESS
     CODE --> DELIVERY
     DOC --> COMM
-    
+
     COLLAB --> FUNC
     PROCESS --> PERF
     DELIVERY --> SEC
     COMM --> QUALITY
-    
+
     FUNC --> EFFICIENCY
     PERF --> QUALITY_IMP
     SEC --> AUTOMATION
     QUALITY --> INNOVATION
-    
+
     class TECH,AI_USE,CODE,DOC fill:#e8f5e8
     class COLLAB,PROCESS,DELIVERY,COMM fill:#fff3e0
     class FUNC,PERF,SEC,QUALITY fill:#fce4ec

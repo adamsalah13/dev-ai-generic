@@ -1,12 +1,15 @@
 # Exercise 1: E-Commerce Product Management System Analysis
 
 ## 🎯 Objective
+
 Use AI tools to analyze, document, and design a comprehensive product management system for an e-commerce platform. This exercise will demonstrate how AI can accelerate requirements gathering, user story creation, and process documentation.
 
 ## 📋 Scenario
+
 **ShopFlow** is an e-commerce platform that wants to implement an automated product catalog management system. The system should handle product listings, inventory management, and order processing for various product categories.
 
 ### Business Context
+
 - Target audience: Small to medium businesses and individual sellers
 - Product range: Physical and digital products
 - Average processing time goal: Real-time inventory updates
@@ -19,7 +22,8 @@ Use AI tools to analyze, document, and design a comprehensive product management
 ### Task 1: Requirements Analysis with AI
 
 **AI Prompt Template:**
-```
+
+```text
 Act as a senior business analyst for an e-commerce platform. Analyze the following product management system requirements:
 
 Business Goal: Create an automated product catalog management system that handles product listings, inventory management, and order processing.
@@ -44,6 +48,7 @@ Format the output as a structured document with clear sections and bullet points
 ```
 
 **Your Task:**
+
 1. Use the above prompt with GitHub Copilot Chat or Cursor AI
 2. Review and refine the generated requirements
 3. Add specific e-commerce considerations
@@ -52,7 +57,8 @@ Format the output as a structured document with clear sections and bullet points
 ### Task 2: User Story Generation
 
 **AI Prompt Template:**
-```
+
+```text
 Based on the e-commerce product management system requirements, create comprehensive user stories for the following personas:
 
 Primary Personas:
@@ -77,6 +83,7 @@ Focus on the complete product lifecycle from listing to order fulfillment.
 ```
 
 **Your Task:**
+
 1. Generate comprehensive user stories using AI
 2. Review and prioritize the stories
 3. Organize into epics and sprints
@@ -85,7 +92,8 @@ Focus on the complete product lifecycle from listing to order fulfillment.
 ### Task 3: Process Flow Documentation
 
 **AI Prompt Template:**
-```
+
+```text
 Create a detailed business process flow for the e-commerce product management system. The process should cover:
 
 Main Flows:
@@ -114,6 +122,7 @@ Generate:
 ```
 
 **Your Task:**
+
 1. Generate the process flow using AI
 2. Create the PlantUML diagram
 3. Validate the flow with stakeholder scenarios
@@ -122,7 +131,8 @@ Generate:
 ### Task 4: Data Model and System Integration
 
 **AI Prompt Template:**
-```
+
+```text
 Design a comprehensive data model and integration architecture for the e-commerce product management system:
 
 Core Entities to model:
@@ -151,6 +161,7 @@ Generate a structured data model with entity relationships and integration point
 ```
 
 **Your Task:**
+
 1. Generate comprehensive data model
 2. Create integration architecture diagram
 3. Define API specifications
@@ -159,7 +170,9 @@ Generate a structured data model with entity relationships and integration point
 ## 📊 Deliverables
 
 ### 1. Requirements Analysis Document
+
 Create `requirements-analysis.md` with:
+
 - [ ] Functional requirements breakdown
 - [ ] Non-functional requirements
 - [ ] Integration requirements
@@ -167,28 +180,36 @@ Create `requirements-analysis.md` with:
 - [ ] Success metrics and KPIs
 
 ### 2. User Stories Collection
+
 Create `user-stories.md` with:
+
 - [ ] Epic organization
 - [ ] Detailed user stories with acceptance criteria
 - [ ] Priority and story point estimates
 - [ ] Dependency mapping
 
 ### 3. Process Flow Documentation
+
 Create `process-flow.md` with:
+
 - [ ] Detailed process description
 - [ ] PlantUML process diagram
 - [ ] Business rules documentation
 - [ ] Exception handling procedures
 
 ### 4. Data Model and Integration
+
 Create `data-model.md` with:
+
 - [ ] Entity relationship diagram
 - [ ] Data validation rules
 - [ ] Integration architecture
 - [ ] API specifications
 
 ### 5. Stakeholder Communication Plan
+
 Create `stakeholder-communication.md` with:
+
 - [ ] Stakeholder identification and analysis
 - [ ] Communication strategy
 - [ ] Review and approval process
@@ -209,39 +230,46 @@ You will successfully complete this exercise when:
 ## 🔄 AI Iteration Process
 
 ### Step 1: Initial Generation
+
 - Use the provided prompts to generate initial content
 - Review the AI output for completeness and accuracy
 
 ### Step 2: Refinement
+
 - Ask follow-up questions to clarify or expand details
 - Request specific examples or edge cases
 - Enhance with domain-specific knowledge
 
 ### Step 3: Validation
+
 - Cross-check requirements against business goals
 - Validate user stories with persona needs
 - Ensure data model supports all use cases
 
 ### Step 4: Integration
+
 - Connect different deliverables for consistency
 - Ensure traceability from requirements to user stories
 - Align process flows with data model
 
 ## 💡 AI Prompting Tips
 
-### For Better Requirements:
+### For Better Requirements
+
 - Be specific about the business context
 - Include constraints and limitations
 - Ask for examples and edge cases
 - Request rationale for recommendations
 
-### For User Stories:
+### For User Stories
+
 - Provide persona details and motivations
 - Ask for acceptance criteria in Given/When/Then format
 - Request priority and effort estimates
 - Include dependency identification
 
-### For Process Flows:
+### For Process Flows
+
 - Specify decision points and business rules
 - Include error handling and exceptions
 - Request timing and performance considerations
@@ -249,20 +277,23 @@ You will successfully complete this exercise when:
 
 ## 📚 Resources
 
-### AI Tool Usage:
-- [GitHub Copilot Chat Guide](../../docs/github-copilot-guide.md)
-- [Cursor AI Best Practices](../../docs/cursor-ai-guide.md)
-- [Effective Prompting Techniques](../../docs/prompting-guide.md)
+### AI Tool Usage
 
-### Business Analysis:
+- [GitHub Copilot Chat Guide](../../docs/github-copilot-guide.md)
+- [Web Development Guide](../../docs/web-development-guide.md)
+- [API Development Guide](../../docs/api-development-guide.md)
+
+### Business Analysis
+
 - [Requirements Template](../../templates/business-analyst/requirements-template.md)
 - [User Story Template](../../templates/business-analyst/user-story-template.md)
 - [Process Flow Template](../../templates/business-analyst/process-flow-template.md)
 
-### E-Commerce Domain:
+### E-Commerce Domain
+
 - [Web Development Best Practices](../../docs/web-development-guide.md)
-- [Database Design Patterns](../../docs/database-design.md)
-- [API Design Guidelines](../../docs/api-design.md)
+- [Database Design Guide](../../docs/database-design-guide.md)
+- [API Development Guide](../../docs/api-development-guide.md)
 
 ## 🔗 Next Steps
 
@@ -287,4 +318,4 @@ By completing this exercise, you will have:
 
 ---
 
-**Ready to transform requirements analysis with AI? Start with Task 1! 🚀**
+Ready to transform requirements analysis with AI? Start with Task 1! 🚀
